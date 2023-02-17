@@ -1,32 +1,37 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../context/ContextProvider";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Sidebar from "./Sidebar";
-
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+import axiosClient from "../api/axios-client";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const onLogout = (ev) => {
-  ev.preventDefault();
-  localStorage.removeItem("ACCESS_TOKEN");
-  window.location.href = "/login";
-};
-
 export default function Defaultlayout() {
-  const { user, token } = useStateContext();
+  const { user, token, setUser, setToken } = useStateContext();
+
   if (!token) {
     return <Navigate to="/login" />;
   }
+
+  const onLogout = (ev) => {
+    ev.preventDefault();
+    axiosClient.post("/logout").then(() => {
+      setUser({});
+      setToken(null);
+    });
+  };
+
+  useEffect(() => {
+    axiosClient.get("/user").then(({ data }) => {
+      console.log(data);
+      setUser(data);
+    });
+  }, []);
 
   return (
     <div>
