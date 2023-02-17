@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useRef } from "react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-
-const onSubmit = (ev) => {
-  ev.preventDefault();
-  console.log("onSubmit");
-};
+import axiosClient from "../api/axios-client";
+import { useStateContext } from "../context/ContextProvider";
 
 function Signup() {
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const passwordConfirmationRef = useRef();
+
+  const { setUser, setToken } = useStateContext();
+
+  const onSubmit = (ev) => {
+    ev.preventDefault();
+    const payload = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      password_confirmation: passwordConfirmationRef.current.value,
+    };
+    axiosClient
+      .post("/signup", payload)
+      .then(({ data }) => {
+        setUser(data.user);
+        setToken(data.token);
+      })
+      .catch((err) => {
+        const response = err.response;
+        if (response.status === 422) {
+          console.log(response.data.errors);
+        }
+      });
+  };
+
   return (
     <>
       <div>
@@ -34,6 +60,7 @@ function Signup() {
               required
               className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder="name address"
+              ref={nameRef}
             />
           </div>
           <div>
@@ -48,6 +75,7 @@ function Signup() {
               required
               className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder="Email address"
+              ref={emailRef}
             />
           </div>
           <div>
@@ -62,6 +90,7 @@ function Signup() {
               required
               className="relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder="Mot de passe"
+              ref={passwordRef}
             />
           </div>
           <div>
@@ -76,6 +105,7 @@ function Signup() {
               required
               className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder="Confirmer le mot de passe"
+              ref={passwordConfirmationRef}
             />
           </div>
         </div>
