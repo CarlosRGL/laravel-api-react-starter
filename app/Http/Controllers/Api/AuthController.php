@@ -23,19 +23,19 @@ class AuthController extends Controller {
 
 		$token = $user->createToken( 'main' )->plainTextToken;
 
-		return response( compact( 'user', 'token' ), 201 );
+		return response( compact( 'user', 'token' ) );
 	}
 
 	public function login( LoginRequest $request ) {
 		$credentials = $request->validated();
 
 		if ( ! Auth::attempt( $credentials ) ) {
-			return response( array( 'message' => 'Invalid login details' ), 401 );
+			return response( array( 'message' => 'Invalid login details' ) );
 		}
 		/** @var User $user */
 		$user  = Auth::user();
 		$token = $user->createToken( 'main' )->plainTextToken;
-		return response( compact( 'user', 'token' ), 201 );
+		return response( compact( 'user', 'token' ) );
 	}
 
 	public function logout( Request $request ) {
