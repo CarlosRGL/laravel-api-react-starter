@@ -30,7 +30,7 @@ class AuthController extends Controller {
 		$credentials = $request->validated();
 
 		if ( ! Auth::attempt( $credentials ) ) {
-			return response( array( 'message' => 'Invalid login details' ) );
+			return response( array( 'message' => 'Invalid login details' ), 422 );
 		}
 		/** @var User $user */
 		$user  = Auth::user();

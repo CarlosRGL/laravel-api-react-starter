@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useRef } from "react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-
-const onSubmit = (ev) => {
-  ev.preventDefault();
-  console.log("onSubmit");
-};
+import SignupErrors from "../components/SignupErrors";
+import axiosClient from "../api/axios-client";
+import { useStateContext } from "../context/ContextProvider";
 
 function Login() {
+  const passwordRef = useRef();
+  const emailRef = useRef();
+
+  const { setUser, setToken } = useStateContext();
+  const [errors, setErrors] = React.useState({});
+
+  const onSubmit = (ev) => {
+    ev.preventDefault();
+    const payload = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
+
+    axiosClient
+      .post("/login", payload)
+      .then(({ data }) => {
+        setUser(data.user);
+        setToken(data.token);
+      })
+      .catch((err) => {
+        const response = err.response;
+        if (response.status === 422) {
+          if (response.data.errors) {
+            setErrors(response.data.errors);
+            return;
+          } else {
+            setErrors({ email: [response.data.message] });
+            return;
+          }
+        }
+      });
+  };
   return (
     <>
       <div>
@@ -19,6 +49,7 @@ function Login() {
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
           Se connecter
         </h2>
+        {Object.keys(errors).length > 0 && <SignupErrors errors={errors} />}
       </div>
       <form className="mt-8 space-y-6" onSubmit={onSubmit}>
         <input type="hidden" name="remember" defaultValue="true" />
@@ -32,9 +63,9 @@ function Login() {
               name="email"
               type="email"
               autoComplete="email"
-              required
               className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder="Email address"
+              ref={emailRef}
             />
           </div>
           <div>
@@ -46,9 +77,9 @@ function Login() {
               name="password"
               type="password"
               autoComplete="current-password"
-              required
               className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder="Mot de passe"
+              ref={passwordRef}
             />
           </div>
         </div>
