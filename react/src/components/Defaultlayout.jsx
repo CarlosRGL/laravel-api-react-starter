@@ -1,11 +1,11 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useStateContext } from "../context/ContextProvider";
-import React, { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import Sidebar from "./Sidebar";
+import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
+import React, { Fragment, useEffect } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../api/axios-client";
+import { useStateContext } from "../context/ContextProvider";
+import Sidebar from "./Sidebar";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
