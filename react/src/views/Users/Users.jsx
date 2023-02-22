@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axiosClient from "../../api/axios-client";
+import Pagination from "../../components/Pagination";
 import { useStateContext } from "../../context/ContextProvider";
 import Loading from "./Loading";
 
 function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [pagination, setPagination] = useState({});
   const { setNotification } = useStateContext();
 
   useEffect(() => {
     getUsers();
   }, []);
 
-  const getUsers = () => {
+  const getUsers = (page = null) => {
     setLoading(true);
+    const url = page ? `/users?page=${page}` : "/users";
     axiosClient
-      .get("/users")
+      .get(url)
       .then(({ data }) => {
         setUsers(data.data);
+        setPagination(data.meta);
         setLoading(false);
       })
       .catch((err) => {
@@ -60,7 +64,7 @@ function Users() {
       <div className="mt-8 flex flex-col">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-t-lg">
               <table className="min-w-full divide-y divide-gray-300">
                 <thead className="bg-gray-50">
                   <tr>
@@ -95,7 +99,7 @@ function Users() {
                     ></th>
                   </tr>
                 </thead>
-                {loading && <Loading />}
+                {loading && <Loading items={15} />}
 
                 {!loading && (
                   <tbody className="divide-y divide-gray-200 bg-white">
@@ -136,6 +140,7 @@ function Users() {
             </div>
           </div>
         </div>
+        {!loading && <Pagination pagination={pagination} getUsers={getUsers} />}
       </div>
     </div>
   );
