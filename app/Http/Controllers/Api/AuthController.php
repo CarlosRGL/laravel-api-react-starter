@@ -32,14 +32,14 @@ class AuthController extends Controller {
 		if ( ! Auth::attempt( $credentials ) ) {
 			return response( array( 'message' => 'Invalid login details' ), 422 );
 		}
-		/** @var User $user */
+		/** @var User $user user */
 		$user  = Auth::user();
 		$token = $user->createToken( 'main' )->plainTextToken;
 		return response( compact( 'user', 'token' ) );
 	}
 
 	public function logout( Request $request ) {
-		/** @var User $user */
+		/** @var User $user user */
 		$user = $request->user();
 		$user->currentAccessToken()->delete();
 		return response( array( 'message' => 'Logged out' ), 200 );

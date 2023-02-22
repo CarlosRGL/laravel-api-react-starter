@@ -81,7 +81,7 @@ export default function Defaultlayout() {
               <Menu as="div" className="relative ml-3">
                 <div>
                   <Menu.Button className="flex gap-3 max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    <span class="text-gray-400">{user.name}</span>
+                    <span className="text-gray-400">{user.name}</span>
                     <img
                       className="h-8 w-8 rounded-full"
                       src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
