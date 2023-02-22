@@ -43,10 +43,6 @@ function Users() {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-xl font-semibold text-gray-900">Users</h1>
-          <p className="mt-2 text-sm text-gray-700">
-            A list of all the users in your account including their name, title,
-            email and role.
-          </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
           <Link
@@ -88,7 +84,7 @@ function Users() {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Cree le
+                      Created at
                     </th>
                     <th
                       scope="col"
@@ -120,13 +116,13 @@ function Users() {
                             onClick={(ev) => onDelete(person.id)}
                             className="text-gray-500  hover:text-gray-900"
                           >
-                            Supprimer
+                            Delete
                           </button>
                           <Link
                             to={`/users/${person.id}`}
                             className="text-indigo-600 hover:text-indigo-900"
                           >
-                            Editer
+                            Edit
                           </Link>
                         </td>
                       </tr>
