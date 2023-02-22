@@ -5,6 +5,7 @@ import React, { Fragment, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../api/axios-client";
 import { useStateContext } from "../context/ContextProvider";
+import Notification from "./Notification";
 import Sidebar from "./Sidebar";
 
 function classNames(...classes) {
@@ -12,7 +13,7 @@ function classNames(...classes) {
 }
 
 export default function Defaultlayout() {
-  const { user, token, setUser, setToken } = useStateContext();
+  const { user, token, notification, setUser, setToken } = useStateContext();
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -129,6 +130,7 @@ export default function Defaultlayout() {
           </div>
         </main>
       </div>
+      {notification && <Notification content={notification} />}
     </div>
   );
 }
