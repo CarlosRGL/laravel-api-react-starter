@@ -75,12 +75,15 @@ function UserForm() {
     <>
       <div>
         <h3 className="text-lg font-medium leading-6 text-gray-900">
-          {user.id && <span>Modifier l'utilisateur {user.name}</span>}
-          {!user.id && <span>Nouveau utilisateur</span>}
+          {user.id && <span> Modify user: {user.name}</span>}
+          {!user.id && <span>New user</span>}
         </h3>
       </div>
 
       {Object.keys(errors).length > 0 && <SignupErrors errors={errors} />}
+
+      {loading && <div>Loading...</div>}
+
       <form action="#" method="POST" onSubmit={onSubmit} className="mt-8">
         <div className="shadow sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white py-6 px-4 sm:p-6">
@@ -90,7 +93,7 @@ function UserForm() {
                   htmlFor="first-name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Nom
+                  Name
                 </label>
                 <input
                   type="text"
@@ -126,7 +129,7 @@ function UserForm() {
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Mot de passe
+                  Password
                 </label>
                 <input
                   type="password"
@@ -144,7 +147,7 @@ function UserForm() {
                   htmlFor="confirm-password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Confirmer le mot de passe
+                  Confirm password
                 </label>
                 <input
                   type="password"

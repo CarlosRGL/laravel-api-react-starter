@@ -1,8 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import classNames from "../utils/functions/classes";
 
 export default function Pagination({ currentPage, pagination }) {
   console.log(pagination);

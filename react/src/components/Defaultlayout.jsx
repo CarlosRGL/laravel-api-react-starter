@@ -5,12 +5,9 @@ import React, { Fragment, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../api/axios-client";
 import { useStateContext } from "../context/ContextProvider";
+import classNames from "../utils/functions/classes";
 import Notification from "./Notification";
 import Sidebar from "./Sidebar";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function Defaultlayout() {
   const { user, token, notification, setUser, setToken } = useStateContext();
@@ -109,7 +106,7 @@ export default function Defaultlayout() {
                           )}
                           onClick={onLogout}
                         >
-                          Se deconnecter
+                          Sign out
                         </a>
                       )}
                     </Menu.Item>

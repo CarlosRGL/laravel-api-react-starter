@@ -1,24 +1,25 @@
-import React, { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  CalendarIcon,
-  ChartBarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  UsersIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { HomeIcon, UsersIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import React, { Fragment, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import classNames from "../utils/functions/classes";
 
 function Sidebar() {
+  const { pathname } = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigation = [
-    { name: "Dashboard", href: "/dashboard", icon: HomeIcon, current: true },
-    { name: "Utilisateurs", href: "/users", icon: UsersIcon, current: false },
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: HomeIcon,
+      current: pathname === "/dashboard",
+    },
+    {
+      name: "Users",
+      href: "/users",
+      icon: UsersIcon,
+      current: pathname === "/users",
+    },
   ];
   return (
     <>
