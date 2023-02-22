@@ -20,22 +20,21 @@ class UserController extends Controller {
 
 	/**
 	 * Store a newly created resource in storage.
+	 *
+	 * @param StoreUserRequest $request Request.
 	 */
 	public function store( StoreUserRequest $request ) {
-		$data = $request->validated();
-		$user = User::create(
-			array(
-				'name'     => $data['name'],
-				'email'    => $data['email'],
-				'password' => bcrypt( $data['password'] ),
-			)
-		);
+		$data             = $request->validated();
+		$data['password'] = bcrypt( $data['password'] );
+		$user             = User::create( $data );
 
 		return response( new UserResource( $user ), 201 );
 	}
 
 	/**
 	 * Display the specified resource.
+	 *
+	 * @param User $user User.
 	 */
 	public function show( User $user ) {
 		return new UserResource( $user );
@@ -43,23 +42,28 @@ class UserController extends Controller {
 
 	/**
 	 * Update the specified resource in storage.
+	 *
+	 * @param UpdateUserRequest $request Request.
+	 * @param User              $user User.
 	 */
 	public function update( UpdateUserRequest $request, User $user ) {
 		$data = $request->validated();
 
-		$user->update(
-			array(
-				'name'     => $data['name'],
-				'email'    => $data['email'],
-				'password' => bcrypt( $data['password'] ),
-			)
-		);
+		if ( ! isset( $data['password'] ) ) {
+			unset( $data['password'] );
+		} else {
+			$data['password'] = bcrypt( $data['password'] );
+		}
+
+		$user->update( $data );
 
 		return response( new UserResource( $user ), 200 );
 	}
 
 	/**
 	 * Remove the specified resource from storage.
+	 *
+	 * @param User $user User.
 	 */
 	public function destroy( User $user ) {
 		$user->delete();
