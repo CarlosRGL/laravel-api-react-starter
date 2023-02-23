@@ -1,12 +1,11 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import classNames from "../utils/functions/classes";
 
-export default function Pagination({ pagination, getUsers }) {
+export default function Pagination({ pagination, setPage }) {
   const { current_page, last_page, from, to, total } = pagination;
   const handleClick = (ev) => {
     ev.preventDefault();
-    console.log(ev.target);
-    getUsers(ev.target.dataset.page);
+    setPage(ev.target.dataset.page);
   };
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-6 sm:px-8">
