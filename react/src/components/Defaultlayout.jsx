@@ -117,7 +117,7 @@ export default function Defaultlayout() {
           </div>
         </div>
 
-        <main className="flex-1">
+        <main className="flex-1 container mx-auto">
           <div className="">
             <div className="mx-auto   ">
               {/* Replace with your content */}
