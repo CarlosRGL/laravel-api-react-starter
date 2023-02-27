@@ -1,7 +1,6 @@
 import React from "react";
 
 function Loading({ items }) {
-  console.log(items);
   return (
     <tbody className="divide-y divide-gray-200 bg-white">
       {Array.from({ length: items }, (_, i) => (
