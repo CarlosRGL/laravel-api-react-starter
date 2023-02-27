@@ -25,6 +25,7 @@ Route::middleware( 'auth:sanctum' )->group(
 				return $request->user();
 			}
 		);
+		Route::get( '/users/search/{search}', array( UserController::class, 'search' ) );
 		Route::apiResource( '/users', UserController::class );
 	}
 );

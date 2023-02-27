@@ -15,7 +15,11 @@ class UserController extends Controller {
 	 * Display a listing of the resource.
 	 */
 	public function index() {
-		return UserResource::collection( User::query()->orderBy( 'id', 'desc' )->paginate( 15 ) );
+		return UserResource::collection( User::query()->orderBy( 'id', 'desc' )->paginate( 25 ) );
+	}
+
+	public function search( $search ) {
+		return UserResource::collection( User::query()->where( 'name', 'like', '%' . $search . '%' )->orderBy( 'id', 'desc' )->paginate( 25 ) );
 	}
 
 	/**

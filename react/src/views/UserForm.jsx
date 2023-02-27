@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axiosClient from "../api/axios-client";
 import SignupErrors from "../components/SignupErrors";
+import TitleHeader from "../components/TitleHeader";
 import { useStateContext } from "../context/ContextProvider";
+import { useUser } from "../utils/functions/hooks/getUsers";
 
 function UserForm() {
   const { setNotification } = useStateContext();
   const navigate = useNavigate();
   const { id } = useParams();
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = React.useState({});
   const [user, setUser] = useState({
     id: null,
@@ -20,18 +21,12 @@ function UserForm() {
 
   if (id) {
     // fetch user
+    const { data, isLoading } = useUser(id);
     useEffect(() => {
-      setLoading(true);
-      axiosClient
-        .get(`/users/${id}`)
-        .then(({ data }) => {
-          setUser(data);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setLoading(false);
-        });
-    }, []);
+      if (data) {
+        setUser(data);
+      }
+    }, [data]);
   }
 
   const onSubmit = (ev) => {
@@ -73,18 +68,16 @@ function UserForm() {
 
   return (
     <>
-      <div>
-        <h3 className="text-lg font-medium leading-6 text-gray-900">
-          {user.id && <span> Modify user: {user.name}</span>}
-          {!user.id && <span>New user</span>}
-        </h3>
-      </div>
+      <TitleHeader title={user.id ? `Modify user: ${user.name}` : `New user`} />
 
       {Object.keys(errors).length > 0 && <SignupErrors errors={errors} />}
 
-      {loading && <div>Loading...</div>}
-
-      <form action="#" method="POST" onSubmit={onSubmit} className="mt-8">
+      <form
+        action="#"
+        method="POST"
+        onSubmit={onSubmit}
+        className="pt-8 bg-white "
+      >
         <div className="shadow sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white py-6 px-4 sm:p-6">
             <div className="grid grid-cols-6 gap-6">
