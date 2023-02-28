@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 function SearchBar({ setSearch }) {
   const { pathname } = useLocation();
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(false);
   const [timer, setTimer] = useState(null);
 
   const inputChanged = (e) => {

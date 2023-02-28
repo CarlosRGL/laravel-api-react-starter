@@ -1,7 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Bars3BottomLeftIcon, BellIcon } from "@heroicons/react/24/outline";
 import React, { Fragment, useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import axiosClient from "../api/axios-client";
 import { useStateContext } from "../context/ContextProvider";
 import classNames from "../utils/functions/classes";
@@ -10,12 +10,15 @@ import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar";
 
 export default function Defaultlayout() {
+  const navigate = useNavigate();
   const { user, token, notification, setUser, setToken } = useStateContext();
-  const [search, setSearch] = useState("");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
 
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
+  const [search, setSearch] = useState(false);
 
   const onLogout = (ev) => {
     ev.preventDefault();
@@ -100,13 +103,9 @@ export default function Defaultlayout() {
         </div>
 
         <main className="flex-1 container mx-auto">
-          <div className="">
-            <div className="mx-auto   ">
-              {/* Replace with your content */}
-              <Outlet context={[search]} />
-              {/* /End replace */}
-            </div>
-          </div>
+          {/* Replace with your content */}
+          <Outlet context={[search]} />
+          {/* /End replace */}
         </main>
       </div>
       {notification && <Notification content={notification} />}
