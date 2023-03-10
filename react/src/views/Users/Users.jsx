@@ -12,7 +12,7 @@ import Loading from "./Loading";
 function Users() {
   const [search] = useOutletContext();
   const { setNotification } = useStateContext();
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState("1");
   const { data, isLoading } = useUsers(page, search || false);
   const mutation = useMutation(
     (id) => {
@@ -34,7 +34,7 @@ function Users() {
 
   return (
     <div className="bg-white">
-      <TitleHeader title="Users" />
+      <TitleHeader title="Users" filter={true} />
       <div className="flex flex-col overflow-x-hidden">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">

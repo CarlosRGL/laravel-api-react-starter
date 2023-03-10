@@ -25,7 +25,7 @@ const searchUsers = async (query) => {
 export function useUsers(page, search = false) {
   return useQuery(["users", page, search], () => getUsers(page, search), {
     keepPreviousData: true,
-    staleTime: 5000,
+    staleTime: Infinity,
   });
 }
 export function useUser(id) {
