@@ -16,7 +16,12 @@ use App\Http\Controllers\Api\v1\UserController;
 |
 */
 
-Route::prefix( 'v1' )->middleware( 'auth:sanctum' )->group(
+
+Route::group(
+	array(
+		'prefix'     => 'v1',
+		'middleware' => 'auth:sanctum',
+	),
 	function () {
 		Route::post( 'logout', array( AuthController::class, 'logout' ) );
 		Route::get(
@@ -30,5 +35,13 @@ Route::prefix( 'v1' )->middleware( 'auth:sanctum' )->group(
 	}
 );
 
-Route::post( 'signup', array( AuthController::class, 'signup' ) );
-Route::post( 'login', array( AuthController::class, 'login' ) );
+Route::group(
+	array(
+		'prefix'     => 'v1',
+		'middleware' => 'api',
+	),
+	function () {
+		Route::post( 'signup', array( AuthController::class, 'signup' ) );
+		Route::post( 'login', array( AuthController::class, 'login' ) );
+	}
+);

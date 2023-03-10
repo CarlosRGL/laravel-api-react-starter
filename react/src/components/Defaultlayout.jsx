@@ -8,6 +8,7 @@ import classNames from "../utils/functions/classes";
 import Notification from "./Notification";
 import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar";
+import { queryClient } from "../api/queryClient";
 
 export default function Defaultlayout() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export default function Defaultlayout() {
     axiosClient.post("/logout").then(() => {
       setUser({});
       setToken(null);
+      queryClient.invalidateQueries("users");
     });
   };
 
