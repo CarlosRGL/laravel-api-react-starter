@@ -10,7 +10,7 @@ import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar";
 import { queryClient } from "../api/queryClient";
 
-export default function Defaultlayout() {
+export default function Defaultlayout(props) {
   const navigate = useNavigate();
   const { user, token, notification, setUser, setToken } = useStateContext();
   useEffect(() => {
@@ -20,6 +20,7 @@ export default function Defaultlayout() {
   }, [token]);
 
   const [search, setSearch] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const onLogout = (ev) => {
     ev.preventDefault();
@@ -38,7 +39,7 @@ export default function Defaultlayout() {
 
   return (
     <div>
-      <Sidebar />
+      <Sidebar sidebar={sidebarOpen} setSidebar={setSidebarOpen} />
       <div className="flex flex-col md:pl-64">
         <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
           <button

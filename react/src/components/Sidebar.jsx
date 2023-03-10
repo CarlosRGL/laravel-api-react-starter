@@ -4,9 +4,8 @@ import React, { Fragment, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "../utils/functions/classes";
 
-function Sidebar() {
+function Sidebar({ sidebar, setSidebar }) {
   const { pathname } = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const navigation = [
     {
       name: "Dashboard",
@@ -23,11 +22,11 @@ function Sidebar() {
   ];
   return (
     <>
-      <Transition.Root show={sidebarOpen} as={Fragment}>
+      <Transition.Root show={sidebar} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-40 md:hidden"
-          onClose={setSidebarOpen}
+          onClose={setSidebar}
         >
           <Transition.Child
             as={Fragment}
@@ -65,7 +64,7 @@ function Sidebar() {
                     <button
                       type="button"
                       className="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                      onClick={() => setSidebarOpen(false)}
+                      onClick={() => setSidebar(false)}
                     >
                       <span className="sr-only">Close sidebar</span>
                       <XMarkIcon
