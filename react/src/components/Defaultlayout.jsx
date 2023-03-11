@@ -10,9 +10,10 @@ import SearchBar from "./SearchBar";
 import Sidebar from "./Sidebar";
 import { queryClient } from "../api/queryClient";
 
-export default function Defaultlayout(props) {
+export default function Defaultlayout() {
   const navigate = useNavigate();
-  const { user, token, notification, setUser, setToken } = useStateContext();
+  const { user, token, notification, searchEnable, setUser, setToken } =
+    useStateContext();
   useEffect(() => {
     if (!token) {
       navigate("/login");
@@ -52,7 +53,7 @@ export default function Defaultlayout(props) {
           </button>
           <div className="flex flex-1 justify-between px-4">
             <div className="flex flex-1">
-              <SearchBar setSearch={setSearch} />
+              {searchEnable && <SearchBar setSearch={setSearch} />}
             </div>
             <div className="ml-4 flex items-center md:ml-6">
               <button
@@ -105,7 +106,7 @@ export default function Defaultlayout(props) {
           </div>
         </div>
 
-        <main className="flex-1 container mx-auto">
+        <main className="">
           {/* Replace with your content */}
           <Outlet context={[search]} />
           {/* /End replace */}

@@ -1,6 +1,9 @@
 import React from "react";
 import TitleHeader from "../components/TitleHeader";
-function Dashboard() {
+import { useStateContext } from "../context/ContextProvider";
+function Dashboard({ searchEnable }) {
+  const { setSearchEnable } = useStateContext();
+  setSearchEnable(searchEnable);
   return (
     <div>
       <TitleHeader title="Dashboard" filter={false} />

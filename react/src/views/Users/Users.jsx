@@ -9,9 +9,10 @@ import { useStateContext } from "../../context/ContextProvider";
 import { useUsers } from "../../utils/functions/hooks/getUsers";
 import Loading from "./Loading";
 
-function Users() {
+function Users({ searchEnable }) {
+  const { setNotification, setSearchEnable } = useStateContext();
+  setSearchEnable(searchEnable);
   const [search] = useOutletContext();
-  const { setNotification } = useStateContext();
   const [page, setPage] = React.useState("1");
   const { data, isLoading } = useUsers(page, search || false);
   const mutation = useMutation(
@@ -44,13 +45,13 @@ function Users() {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-12"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 pl-12"
                     >
                       ID
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-12"
+                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 pl-12"
                     >
                       Name
                     </th>
@@ -79,10 +80,10 @@ function Users() {
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {data.data?.map((person) => (
                       <tr key={person.id}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 sm:pl-12">
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 pl-12">
                           {person.id}
                         </td>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-12">
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 pl-12">
                           {person.name}
                         </td>
 

@@ -19,19 +19,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: <Dashboard searchEnable={false} />,
       },
       {
         path: "/users",
-        element: <Users />,
+        element: <Users searchEnable={true} />,
       },
       {
         path: "/users/new",
-        element: <UserForm key="userCreate" />,
+        element: <UserForm />,
       },
       {
         path: "/users/:id",
-        element: <UserForm key="userUpdate" />,
+        element: <UserForm />,
       },
     ],
   },
