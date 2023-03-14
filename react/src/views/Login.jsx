@@ -47,7 +47,7 @@ function Login() {
           alt="Your Company"
         />
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-          Se connecter
+          Sign in to your account
         </h2>
         {Object.keys(errors).length > 0 && <SignupErrors errors={errors} />}
       </div>
@@ -70,7 +70,7 @@ function Login() {
           </div>
           <div>
             <label htmlFor="password" className="sr-only">
-              Mot de passe
+              Password
             </label>
             <input
               id="password"
@@ -78,7 +78,7 @@ function Login() {
               type="password"
               autoComplete="current-password"
               className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              placeholder="Mot de passe"
+              placeholder="Password"
               ref={passwordRef}
             />
           </div>
@@ -90,7 +90,7 @@ function Login() {
               to="/signup"
               className="font-medium text-indigo-600 hover:text-indigo-500"
             >
-              Creer une compte
+              create an account
             </Link>
           </div>
         </div>

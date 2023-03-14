@@ -106,7 +106,7 @@ export default function Defaultlayout() {
           </div>
         </div>
 
-        <main className="">
+        <main className="max-w-[1670px] w-full mx-auto border-x border-gray-200">
           {/* Replace with your content */}
           <Outlet context={[search]} />
           {/* /End replace */}

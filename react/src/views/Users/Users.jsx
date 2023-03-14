@@ -45,13 +45,13 @@ function Users({ searchEnable }) {
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 pl-12"
+                      className="py-3.5  pr-3 text-left text-sm font-semibold text-gray-900 pl-12"
                     >
                       ID
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 pl-12"
+                      className="py-3.5  pr-3 text-left text-sm font-semibold text-gray-900 pl-12"
                     >
                       Name
                     </th>
@@ -80,10 +80,10 @@ function Users({ searchEnable }) {
                   <tbody className="divide-y divide-gray-200 bg-white">
                     {data.data?.map((person) => (
                       <tr key={person.id}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-500 pl-12">
+                        <td className="whitespace-nowrap py-4  pr-3 text-sm font-medium text-gray-500 pl-12">
                           {person.id}
                         </td>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 pl-12">
+                        <td className="whitespace-nowrap py-4  pr-3 text-sm font-medium text-gray-900 pl-12">
                           {person.name}
                         </td>
 
